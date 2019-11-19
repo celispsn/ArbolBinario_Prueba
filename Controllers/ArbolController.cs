@@ -20,5 +20,12 @@ namespace ArbolBinario_Prueba.Controllers
             var stateArbol = arbolRepo.createArbol(crearArbol);
             return Ok();
         }
+
+        [HttpPost("lowest")]
+        public IActionResult lcaFind(LowestCommonAncestor lowestCommonAncestor)
+        {
+            var lcaValue = arbolRepo.LowestCommonAncestor(lowestCommonAncestor);
+            return Ok(lcaValue);
+        }
     }
 }
