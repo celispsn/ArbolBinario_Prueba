@@ -24,6 +24,12 @@ namespace ArbolBinario_Prueba.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        public IActionResult get()
+        {
+            return Ok("Uno");
+        }
+
         [HttpPost("lowest")]
         public IActionResult lcaFind(LowestCommonAncestor lowestCommonAncestor)
         {
