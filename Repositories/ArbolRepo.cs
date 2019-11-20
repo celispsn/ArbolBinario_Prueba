@@ -8,18 +8,17 @@ namespace ArbolBinario_Prueba.Repositories
 {
     public class ArbolRepo : IArbolRepo
     {
-        public bool createArbol(CrearArbol crearArbol)
+        public Nodo createArbol(CrearArbol crearArbol)
         {
             if(crearArbol == null){
-                return false;
+                return null;
             }
             Nodo nodoRaiz = new Nodo(crearArbol.nodeValues[0]); // Nodo Inicial
             foreach (var nodeValue in crearArbol.nodeValues.Skip(1))
             {
                 insertNodo(nodoRaiz, nodeValue);
             }
-            displayNode(nodoRaiz);
-            return true;
+            return nodoRaiz;
         }
 
         public Nodo arbolaBuscar(CrearArbol crearArbol)
@@ -32,7 +31,6 @@ namespace ArbolBinario_Prueba.Repositories
             {
                 insertNodo(nodoRaiz, nodeValue);
             }
-            displayNode(nodoRaiz);
             return nodoRaiz;
         }
 
@@ -55,14 +53,6 @@ namespace ArbolBinario_Prueba.Repositories
             }
         }
 
-        public void displayNode(Nodo nodoRaiz)
-        {
-            if(nodoRaiz == null) { return; }
-            displayNode(nodoRaiz.leftChild);
-            Console.WriteLine(nodoRaiz.nodeValue);
-            displayNode(nodoRaiz.rightChild);
-        }
-
         public int LowestCommonAncestor(LowestCommonAncestor lowestCommonAncestor)
         {
             CrearArbol arbol = new CrearArbol(){
@@ -70,12 +60,19 @@ namespace ArbolBinario_Prueba.Repositories
             };
             Nodo nodoRaiz = arbolaBuscar(arbol);
             Nodo lcaValue = FindLca(nodoRaiz, lowestCommonAncestor.valueOne, lowestCommonAncestor.valueTwo);
-
+            if(lcaValue == null){
+                return 0;
+            }
             return lcaValue.nodeValue;
         }
 
         public Nodo FindLca(Nodo nodoRevisando, int valueOne, int valueTwo)
         {
+
+            if(nodoRevisando == null){
+                return null;
+            }
+
             if(nodoRevisando.nodeValue > valueOne && nodoRevisando.nodeValue > valueTwo){
                 return FindLca(nodoRevisando.leftChild, valueOne, valueTwo);
             }
@@ -87,3 +84,4 @@ namespace ArbolBinario_Prueba.Repositories
         }
     }
 }
+
